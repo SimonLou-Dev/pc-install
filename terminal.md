@@ -22,8 +22,7 @@ cargo install zellij
 # Outils CLI modernes
 sudo dnf install fzf ripgrep fd-find
 
-echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
+
 ```
 
 > Sur Fedora, le binaire s'appelle directement `fd`. Pas besoin de symlink.
@@ -39,8 +38,14 @@ sudo apt install fzf ripgrep fd-find
 mkdir -p ~/.local/bin
 ln -sf $(which fdfind) ~/.local/bin/fd
 ```
+## PATH
 
-> Assure-toi que `~/.local/bin` est dans ton `$PATH`.
+```bash
+chsh -s /bin/zsh
+mkdir -p ~/.local/bin
+echo 'export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
+```
 
 ---
 

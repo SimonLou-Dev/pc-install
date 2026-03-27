@@ -280,10 +280,7 @@ format = """
 $directory\
 $git_branch\
 $git_status\
-$kubernetes\
-$docker_context\
 $python\
-$nodejs\
 $character
 """
 

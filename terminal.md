@@ -163,7 +163,7 @@ style = "Italic"
 [window]
 padding = { x = 8, y = 8 }
 opacity = 0.95
-decorations = "None"
+decorations = "Full"
 
 # -------------------------------------------
 # Desactiver les keybinds qui entrent en conflit avec Zellij

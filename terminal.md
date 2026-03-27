@@ -1,11 +1,4 @@
 # Configuration Terminal — Alacritty + Zellij + Zsh + Starship
-
-Guide d'installation et de configuration d'un environnement terminal moderne, découplé et thémable.
-
-**Stack :** Alacritty (émulateur GPU) · Zellij (multiplexer) · Zsh (shell) · Starship (prompt)
-
-> Inspiré de [cette vidéo](https://www.youtube.com/watch?v=Rl9kV1VPbtc), adapté et corrigé pour Fedora (DNF) et Debian/Ubuntu (APT).
-
 ---
 
 ## Prérequis
@@ -22,13 +15,15 @@ Guide d'installation et de configuration d'un environnement terminal moderne, d�
 
 ```bash
 # Terminal + multiplexer + shell
-sudo dnf install alacritty zellij zsh
+sudo dnf install alacritty cargo zsh
 
-# Font de base (sans glyphes spéciaux)
-sudo dnf install jetbrains-mono-fonts
+cargo install zellij
 
 # Outils CLI modernes
 sudo dnf install fzf ripgrep fd-find
+
+echo 'export PATH="$HOME/.cargo/bin:$PATH"' >> ~/.zshrc
+source ~/.zshrc
 ```
 
 > Sur Fedora, le binaire s'appelle directement `fd`. Pas besoin de symlink.

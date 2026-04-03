@@ -45,6 +45,8 @@ chsh -s /bin/zsh
 mkdir -p ~/.local/bin
 echo 'export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$PATH"' >> ~/.zshrc
 source ~/.zshrc
+
+
 ```
 
 ---
@@ -90,6 +92,7 @@ Déconnecte-toi et reconnecte-toi pour que le changement prenne effet.
 
 ```bash
 curl -sS https://starship.rs/install.sh | sh
+
 ```
 
 ---
@@ -132,9 +135,23 @@ setopt HIST_IGNORE_DUPS
 
 > **Pourquoi `exec` ?** Sans `exec`, quand tu quittes Zellij tu retombes dans le Zsh parent qui l'a lancé. Avec `exec`, le shell est remplacé par Zellij : quitter Zellij = fermer le terminal. C'est le comportement attendu.
 
+```bash
+
+
+starship preset catppuccin-powerline -o ~/.config/starship.toml
+
+```
+
+
 ---
 
 ## 6. Configuration Alacritty
+
+
+
+```bash
+curl -LO --output-dir ~/.config/alacritty https://github.com/catppuccin/alacritty/raw/main/catppuccin-macchiato.toml
+```
 
 Fichier : `~/.config/alacritty/alacritty.toml`
 
@@ -142,8 +159,16 @@ Fichier : `~/.config/alacritty/alacritty.toml`
 # -------------------------------------------
 # Font — utiliser la version Nerd Font
 # -------------------------------------------
+
+general.import = [
+    "~/.config/alacritty/catppuccin-macchiato.toml"
+]
+
 [font]
 size = 12.0
+
+[env]
+TERM = "xterm-256color"
 
 [font.normal]
 family = "JetBrainsMono Nerd Font"
@@ -185,33 +210,7 @@ bindings = [
   { key = "Z",     mods = "Control|Shift", action = "ReceiveChar" },
 ]
 
-# -------------------------------------------
-# Theme de couleurs — Nord
-# Adapter selon le theme Plasma choisi (Nord, Catppuccin, etc.)
-# -------------------------------------------
-[colors.primary]
-background = "#2E3440"
-foreground = "#D8DEE9"
 
-[colors.normal]
-black   = "#3B4252"
-red     = "#BF616A"
-green   = "#A3BE8C"
-yellow  = "#EBCB8B"
-blue    = "#81A1C1"
-magenta = "#B48EAD"
-cyan    = "#88C0D0"
-white   = "#E5E9F0"
-
-[colors.bright]
-black   = "#4C566A"
-red     = "#BF616A"
-green   = "#A3BE8C"
-yellow  = "#EBCB8B"
-blue    = "#81A1C1"
-magenta = "#B48EAD"
-cyan    = "#8FBCBB"
-white   = "#ECEFF4"
 ```
 
 > **Important :** La section `[keyboard] bindings` avec `ReceiveChar` est ce qui permet à Zellij de recevoir les raccourcis `Ctrl+Shift+<key>`. Sans ça, Alacritty les intercepte et les raccourcis Zellij ne fonctionnent pas.
@@ -223,84 +222,7 @@ white   = "#ECEFF4"
 Fichier : `~/.config/zellij/config.kdl`
 
 ```kdl
-// -------------------------------------------
-// Apparence
-// -------------------------------------------
-default_layout "compact"
 
-// Choisir UN theme coherent avec Alacritty et Plasma
-// Options courantes : "nord", "catppuccin-mocha", "tokyo-night", "dracula"
-theme "nord"
-
-// -------------------------------------------
-// Keybinds personnalises
-// -------------------------------------------
-keybinds {
-    normal {
-        // -- Splits --
-        bind "Ctrl Shift d" { NewPane "Right"; }
-        bind "Ctrl Shift e" { NewPane "Down"; }
-        bind "Ctrl Shift x" { CloseFocus; }
-
-        // -- Navigation vim-style --
-        bind "Ctrl Shift h" { MoveFocus "Left"; }
-        bind "Ctrl Shift l" { MoveFocus "Right"; }
-        bind "Ctrl Shift k" { MoveFocus "Up"; }
-        bind "Ctrl Shift j" { MoveFocus "Down"; }
-
-        // -- Resize --
-        bind "Ctrl Shift Alt h" { Resize "Increase Left"; }
-        bind "Ctrl Shift Alt l" { Resize "Increase Right"; }
-        bind "Ctrl Shift Alt k" { Resize "Increase Up"; }
-        bind "Ctrl Shift Alt j" { Resize "Increase Down"; }
-
-        // -- Zoom (toggle fullscreen sur le pane actif) --
-        bind "Ctrl Shift z" { ToggleFocusFullscreen; }
-
-        // -- Tabs --
-        bind "Ctrl Shift t" { NewTab; }
-        bind "Ctrl Shift w" { CloseTab; }
-        bind "Ctrl Tab" { GoToNextTab; }
-        bind "Ctrl Shift Tab" { GoToPreviousTab; }
-    }
-}
-```
-
----
-
-## 8. Configuration Starship (optionnel)
-
-Fichier : `~/.config/starship.toml`
-
-```toml
-# Prompt minimaliste, adapte selon tes gouts
-# Doc complete : https://starship.rs/config/
-
-format = """
-$directory\
-$git_branch\
-$git_status\
-$python\
-$character
-"""
-
-[character]
-success_symbol = "[➜](bold green)"
-error_symbol = "[✗](bold red)"
-
-[directory]
-truncation_length = 3
-truncate_to_repo = true
-
-[git_branch]
-format = "[$symbol$branch]($style) "
-
-[kubernetes]
-disabled = false
-format = "[$symbol$context( \\($namespace\\))]($style) "
-
-[docker_context]
-disabled = false
 ```
 
 ---
